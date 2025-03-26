@@ -1,0 +1,22 @@
+
+{% if user.is_authenticated %}
+    <form action="{% url 'razorpay_success' %}" method="POST">
+        {% csrf_token %}
+        <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="{{ razorpay_key }}"
+            data-amount="{{ amount }}"
+            data-currency="INR"
+            data-order_id="{{ order_id }}"
+            data-buttontext="Pay Now"
+            data-name="Your E-Commerce"
+            data-description="Purchase Product"
+            data-theme.color="#F37254">
+        </script>
+        <input type="hidden" name="order_id" value="{{ order_id }}">
+    </form>
+{% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to complete your purchase.</p>
+{% endif %}
+
+

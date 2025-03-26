@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">All Products in <span class="text-primary">{{ category.name }}</span></h2>
+    
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
+                        {% comment %} <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">View Details</a> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center text-muted">No products available in this category.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

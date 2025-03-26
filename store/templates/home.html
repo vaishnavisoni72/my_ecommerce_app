@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+        {% for category, products in category_data.items %}
+            <h2 class="text-center mb-4">{{ category.name }}</h2>
+            
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
+                                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
+                                <a href="{% url 'product_detail' product.slug %}" class="btn btn-outline-info">
+                                    <i class="fas fa-info-circle"></i> View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="{% url 'category_products' category.slug %}" class="btn btn-primary">View More</a>
+            </div>
+
+            <hr class="my-5">
+        {% endfor %}
+    {% else %}
+        <div class="text-center mt-5">
+            <h2>Welcome to My E-Commerce Website</h2>
+            <p class="lead">Login or Register to explore our amazing products.</p>
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg m-2">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-success btn-lg m-2">Register</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+

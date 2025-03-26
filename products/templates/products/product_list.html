@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Products</h2>
+
+<div class="dropdown mb-3">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-filter"></i> Sort by
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+        <li><a class="dropdown-item" href="?sort=all">All</a></li>
+        <li><a class="dropdown-item" href="?sort=low_to_high">Price: Low to High</a></li>
+        <li><a class="dropdown-item" href="?sort=high_to_low">Price: High to Low</a></li> 
+    </ul>
+</div>
+
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="text-success">Price: ${{ product.price }}</p>
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
+                <a href="{% url 'product_detail' product.slug %}" class="btn btn-outline-info">
+                    <i class="fas fa-info-circle"></i> View Details
+                </a>
+                <a href="{% url 'buy_now' product.id %}" class="btn btn-success">Buy Now</a>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+
+
+
