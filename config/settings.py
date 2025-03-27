@@ -96,7 +96,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'), conn_max_age=600, ssl_require=True)
 }
-ALLOWED_HOSTS = ['myecommerce.onrender.com']
+ALLOWED_HOSTS = ['my-ecommerce-app-sj1r.onrender.com', 'localhost', '127.0.0.1']
+
 
 
 
